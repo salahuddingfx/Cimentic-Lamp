@@ -1,0 +1,56 @@
+/* ================= CINEMATIC ANIMATIONS ================= */
+
+@keyframes swing {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.swing {
+  animation: swing 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Light spread */
+.light-bg {
+  background: radial-gradient(circle,
+    rgba(255,220,150,0.45) 0%,
+    rgba(0,0,0,0.9) 65%);
+  animation: glowIn .8s ease-out forwards;
+}
+
+@keyframes glowIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Bulb glow */
+.lamp-on {
+  box-shadow:
+    0 0 40px rgba(255,220,150,.9),
+    0 0 140px rgba(255,220,150,.6);
+}
+
+/* Dust / Firefly particles */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,220,150,.8);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float linear forwards;
+}
+
+@keyframes float {
+  from {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="style.css" />
+<title>Cinematic Lamp Experience | Salah Uddin Kader</title>
+
+<meta name="description"
+  content="Award-level cinematic interactive lamp experience with emotion, sound, particles and storytelling UI." />
+
+<link rel="icon" type="image/svg+xml"
+  href='data:image/svg+xml,
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+    <circle cx="32" cy="32" r="30" fill="black"/>
+    <circle cx="32" cy="26" r="6" fill="gold"/>
+    <path d="M22 40h20l-4-12H26z" fill="gold"/>
+  </svg>' />
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+/* ================= CINEMATIC ANIMATIONS ================= */
+
+@keyframes swing {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(2deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.swing {
+  animation: swing 3s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Light spread */
+.light-bg {
+  background: radial-gradient(circle,
+    rgba(255,220,150,0.45) 0%,
+    rgba(0,0,0,0.9) 65%);
+  animation: glowIn .8s ease-out forwards;
+}
+
+@keyframes glowIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Bulb glow */
+.lamp-on {
+  box-shadow:
+    0 0 40px rgba(255,220,150,.9),
+    0 0 140px rgba(255,220,150,.6);
+}
+
+/* Dust / Firefly particles */
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,220,150,.8);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float linear forwards;
+}
+
+@keyframes float {
+  from {
+    transform: translate(0,0);
+    opacity: 1;
+  }
+  to {
+    transform: translate(var(--x), var(--y));
+    opacity: 0;
+  }
+}
+</style>
+</head>
+
+<body class="bg-black min-h-screen flex flex-col items-center overflow-hidden text-white">
+
+<!-- Mood Background -->
+<div id="bg" class="fixed inset-0 opacity-0 transition-opacity duration-700"></div>
+
+<!-- Particle Layer -->
+<div id="particles" class="fixed inset-0 pointer-events-none"></div>
+
+<!-- Lamp -->
+<header class="relative flex flex-col items-center swing mt-2 z-10">
+  <div class="w-32 h-2 bg-gray-700 rounded-full"></div>
+  <div class="w-1 h-40 bg-gray-400"></div>
+
+  <div id="lamp" class="w-24 h-16 bg-gray-800 rounded-b-full flex items-center justify-center transition">
+    <div id="bulb" class="w-6 h-6 bg-yellow-300 rounded-full opacity-30 transition"></div>
+  </div>
+
+  <!-- Physics Rope -->
+  <div id="rope" class="mt-2 cursor-pointer">
+    <div class="w-1 h-24 bg-gray-400 mx-auto"></div>
+    <div class="w-4 h-4 bg-gray-300 rounded-full mx-auto"></div>
+  </div>
+
+  <p class="text-gray-400 text-sm mt-3">Pull the light</p>
+</header>
+
+<!-- Quote -->
+<main id="quoteBox"
+  class="mt-12 max-w-xl text-center opacity-0 translate-y-6 transition-all duration-700 z-10">
+  <p id="quoteText" class="text-xl font-light italic leading-relaxed"></p>
+</main>
+
+<!-- Developer Button -->
+<button id="devBtn"
+  class="mt-12 px-6 py-2 border border-gray-500 rounded-full hover:bg-white hover:text-black transition z-10">
+  About the Developer
+</button>
+
+<!-- Developer Panel -->
+<section id="devPanel"
+  class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700
+         transform translate-y-full transition-transform duration-500 z-20">
+
+  <div class="max-w-4xl mx-auto p-6 text-center space-y-4">
+    <h2 class="text-2xl font-semibold">Salah Uddin Kader</h2>
+    <p class="text-gray-400">Developer • Designer</p>
+
+    <p class="text-sm text-gray-500">
+      I don’t build pages — I design experiences that feel alive.
+    </p>
+
+    <div class="flex justify-center gap-4">
+      <a href="https://github.com/salahuddingfx" target="_blank"
+        class="px-4 py-2 border rounded hover:bg-white hover:text-black">GitHub</a>
+      <a href="https://behance.net/salahuddingfx" target="_blank"
+        class="px-4 py-2 border rounded hover:bg-white hover:text-black">Behance</a>
+        <a href="https://linkedin.com/in/salahuddingfx" target="_blank"
+          class="px-4 py-2 border rounded hover:bg-white hover:text-black">LinkedIn</a>
+    </div>
+
+    <button id="closeDev" class="text-sm text-gray-400 hover:text-white mt-4">
+      Close
+    </button>
+  </div>
+</section>
+
+<!-- Ambient Sound -->
+<audio id="hum" loop>
+  <source src="Assets/bliss - lofi hip hop.mp3" type="audio/mpeg">
+</audio>
+
+<script src="script.js">
+
+</script>
+
+</body>
+</html>
